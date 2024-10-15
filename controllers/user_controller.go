@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	models "github.com/upDJ/Image-Processing-Service/models"
+	"github.com/upDJ/Image-Processing-Service/models"
 )
 
 func createUser(c *gin.Context) []models.User {
@@ -13,5 +13,4 @@ func createUser(c *gin.Context) []models.User {
 	}
 
 	users := append(models.Users, newUser)
-	return users
-}
+	return users}

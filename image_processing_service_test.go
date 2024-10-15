@@ -5,7 +5,7 @@ import (
 	"net/http/httptest"
 	"testing"
 	"github.com/stretchr/testify/assert"
-  routers "github.com/upDJ/Image-Processing-Service/routers"
+  "github.com/upDJ/Image-Processing-Service/routers"
 
 )
 
