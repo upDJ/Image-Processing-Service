@@ -5,12 +5,13 @@ import (
 	"github.com/upDJ/Image-Processing-Service/models"
 )
 
-func createUser(c *gin.Context) []models.User {
+func CreateUser(c *gin.Context) {
 	var newUser models.User
 
 	if err := c.BindJSON(&newUser); err != nil {
-		return models.Users
+		return 
 	}
 
-	users := append(models.Users, newUser)
-	return users}
+  users := append(models.Users, newUser)
+  c.JSON(200, users)
+}

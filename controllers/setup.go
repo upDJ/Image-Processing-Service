@@ -6,4 +6,4 @@ import (
 )
 
 
-func PingController(c *gin.Context) {c.String(200, "pong")}
+func Ping(c *gin.Context) {c.String(200, "pong")}
