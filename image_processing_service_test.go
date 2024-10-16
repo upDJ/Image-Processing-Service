@@ -56,3 +56,35 @@ func TestRegisterRouteUserNotInBody(t *testing.T) {
 	assert.Equal(t, 200, w.Code)
 	assert.NotContains(t, w.Body.String(), string(fakeUserJson))
 }
+
+func TestLoginUser(t *testing.T) {
+	router := routers.SetupRouter()
+	router = routers.SetupUserRoutes(router)
+
+	user := models.User{Username: "dj", Password: "SamplePassword123!"}
+	userJson, _ := json.Marshal(user)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/login", strings.NewReader(string(userJson)))
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, 200, w.Code)
+	assert.Contains(t, "Successful Login!", w.Body.String())
+}
+
+func TestLoginUserNotFound(t *testing.T) {
+	router := routers.SetupRouter()
+	router = routers.SetupUserRoutes(router)
+
+	fakeUser := models.User{
+		ID: "not a real ID", Username: "not a real uname", Password: "not a real password",
+	}
+	fakeUserJson, _ := json.Marshal(fakeUser)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/login", strings.NewReader(string(fakeUserJson)))
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, 404, w.Code)
+	assert.Contains(t, w.Body.String(), "User Not Found")
+}
